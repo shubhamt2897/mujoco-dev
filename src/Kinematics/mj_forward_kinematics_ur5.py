@@ -2,6 +2,10 @@ import mujoco as mj
 from mujoco.glfw import glfw
 import numpy as np
 import os
+from forward_kinematics import forward_kinematics
+import utility as ut 
+
+
 
 xml_path = '../Models/universal_robots_ur5e/scene.xml' #xml file (assumes this is in the same folder as this file)
 simend = 5 #simulation time
@@ -127,18 +131,45 @@ glfw.set_scroll_callback(window, scroll)
 # cam.elevation = -45
 # cam.distance = 2
 # cam.lookat = np.array([0.0, 0.0, 0])
-
+cam.azimuth = -140 ; cam.elevation = -20 ; cam.distance =  2.0
+cam.lookat =np.array([ 0.0 , 0.0 , 0.5 ])
 #initialize the controller
 init_controller(model,data)
 
 #set the controller
 mj.set_mjcb_control(controller)
+key_qpos =model.key("home").qpos
+#print(model.key("home").qpos) #print the home position of the robot
+q = key_qpos.copy()  # copy the home position to q
 
 while not glfw.window_should_close(window):
     time_prev = data.time
 
     while (data.time - time_prev < 1.0/60.0):
-        mj.mj_step(model, data)
+
+        data.time =+0.02  # advance simulation time by 0.02 seconds
+        data.qpos = q.copy()  # set the qpos to the home position
+        mj.mj_forward(model, data)  # advance simulation
+
+        mj_end_eff_pos= data.site('attachment_site').xpos  # print the position of the attachment site
+        mj_end_eff_mat= data.site('attachment_site').xmat 
+        mj_end_eff_quat= np.zeros(4)  # initialize quaternion for end effector orientation
+        mj.mju_mat2Quat(mj_end_eff_quat, mj_end_eff_mat)
+        #print(mj_end_eff_quat) 
+        # 
+        print(f"mj_end_eff_pos=", mj_end_eff_pos)
+        print(f"mj_end_eff_quat=", mj_end_eff_quat) 
+        # print the orientation of the end effector in quaternion format
+         # print the orientation of the
+        sol, robot = forward_kinematics(q)
+        py_end_eff_pos = sol.end_eff_pos
+        py_end_eff_rot = sol.end_eff_rot
+        py_end_eff_quat = ut.rotation2quat(py_end_eff_rot)
+        
+        print(f"py_end_eff_pos=", py_end_eff_pos)
+        print(f"py_end_eff_quat=", py_end_eff_quat) # print the position of the end effector
+
+        #mj.mj_step(model, data)
 
     if (data.time>=simend):
         break;
