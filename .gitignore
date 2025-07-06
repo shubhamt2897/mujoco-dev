@@ -1,0 +1,7 @@
+# filepath: /home/shubham-0802/mujoco-dev/.gitignore
+# Python virtual environment
+mujoco-env/
+
+# Python cache
+__pycache__/
+*.pyc
