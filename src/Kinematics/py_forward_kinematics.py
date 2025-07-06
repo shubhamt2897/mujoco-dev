@@ -1,6 +1,6 @@
 from robot_data import robot
 import numpy as np
-from fwd_kin import forward_kinematics
+from forward_kinematics import forward_kinematics
 import utility as ram
 from animate import animate
 
