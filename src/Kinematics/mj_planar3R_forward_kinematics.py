@@ -2,7 +2,7 @@ import mujoco as mj
 from mujoco.glfw import glfw
 import numpy as np
 import os
-from fwd_kin import forward_kinematics
+from forward_kinematics import forward_kinematics
 
 xml_path = 'Planar_3R.xml'   # xml file (assumes this is in the same folder as this file)
 simend = 100 #simulation time
