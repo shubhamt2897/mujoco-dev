@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 
-xml_path = '../universal_robots_ur5e/scene.xml' #xml file (assumes this is in the same folder as this file)
+xml_path = '../../Models/universal_robots_ur5e/scene.xml' #xml file (assumes this is in the same folder as this file)
 simend = 3 #simulation time
 print_camera_config = 0 #set to 1 to print camera config
                         #this is useful for initializing view of the model)
@@ -29,6 +29,8 @@ def circle(t,x0,y0,r,f):
     x = x0+r*np.cos(2*np.pi*f*t)
     y = y0+r*np.sin(2*np.pi*f*t)
     return x,y
+
+
 
 def init_controller(model,data):
     #initialize the controller here. This function is called once, in the beginning
@@ -264,6 +266,6 @@ plt.title('Trajectory')
 plt.grid()
 plt.axis('equal')
 plt.show()
-#plt.show(block=False)  # Non-blocking display
-#plt.pause(2)  # Pause for 2 seconds
-#plt.close()  # Close the plot
+plt.show(block=False)  # Non-blocking display
+plt.pause(2)  # Pause for 2 seconds
+plt.close()  # Close the plot
