@@ -33,7 +33,7 @@ ik_pos_err_m=0.000000
 
 Those are the current representative accuracy checks for the corrected FK and IK models. The inverse-kinematics circle script also prints the live MuJoCo EE position and the requested reference position during the run so you can inspect tracking quality frame by frame.
 
-## Saved outputs
+## Results
 
 ### Forward kinematics
 
