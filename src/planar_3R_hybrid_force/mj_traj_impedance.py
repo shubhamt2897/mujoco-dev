@@ -400,7 +400,13 @@ if (1):
     # plt.close()  # Close the plot
 
 if (1):
-    plt.figure()
+    #output_dir = os.path.join(os.path.dirname(__file__), 'runs', 'planar3r_impedance')
+    #os.makedirs(output_dir, exist_ok=True)
+
+   # fig1.savefig(os.path.join(output_dir, 'impedance_q_vs_time.png'), dpi=200, bbox_inches='tight')
+    #fig2.savefig(os.path.join(output_dir, 'impedance_u_vs_time.png'), dpi=200, bbox_inches='tight')
+
+    traj_fig = plt.figure()
     plt.plot(x_ref_all, y_ref_all, label='ref', color='black', linestyle='--', linewidth=2)
     plt.plot(x_all, y_all, label='act', color='red',linewidth=4,alpha=0.5)
     plt.xlabel('x')
@@ -409,6 +415,7 @@ if (1):
     plt.title('Trajectory')
     plt.grid()
     plt.axis('equal')
+    #traj_fig.savefig(os.path.join(output_dir, 'impedance_trajectory.png'), dpi=200, bbox_inches='tight')
     #plt.show()
     plt.show(block=False)
     plt.pause(5)
