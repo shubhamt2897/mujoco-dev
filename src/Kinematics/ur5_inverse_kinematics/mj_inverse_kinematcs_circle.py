@@ -23,7 +23,7 @@ lastx = 0
 lasty = 0
 
 t_init  = 1 #settling time,
-f = 1; 
+f = 0.5;  # circles per second; total circles after settling ~= f * (simend - t_init)
 r = 0.1
 def circle(t,x0,y0,r,f):
     x = x0+r*np.cos(2*np.pi*f*t)
@@ -173,6 +173,18 @@ x_all = []
 y_all = []
 z_all = []
 
+plt.ion()
+traj_fig, traj_ax = plt.subplots()
+ref_line, = traj_ax.plot([], [], label='ref', color='black', linestyle='--', linewidth=2, marker='^', markersize=5)
+act_line, = traj_ax.plot([], [], label='act', color='red', linestyle='-', linewidth=2, marker='o', markersize=4)
+traj_ax.set_xlabel('x')
+traj_ax.set_ylabel('y')
+traj_ax.set_title('Trajectory')
+traj_ax.grid()
+traj_ax.axis('equal')
+traj_ax.legend()
+traj_fig.show()
+
 while not glfw.window_should_close(window):
     time_prev = data.time
 
@@ -227,6 +239,13 @@ while not glfw.window_should_close(window):
             y_all.append(mj_end_eff_pos[1])
             z_all.append(mj_end_eff_pos[2])
 
+            ref_line.set_data(x_ref_all, y_ref_all)
+            act_line.set_data(x_all, y_all)
+            traj_ax.relim()
+            traj_ax.autoscale_view()
+            traj_fig.canvas.draw_idle()
+            plt.pause(0.001)
+
 
 
     if (data.time>=simend):
@@ -253,19 +272,5 @@ while not glfw.window_should_close(window):
     # process pending GUI events, call GLFW callbacks
     glfw.poll_events()
 
-glfw.terminate()
-
-# Plot the data
-plt.figure()
-plt.plot(x_ref_all, y_ref_all, label='ref', color='black', linestyle='--', linewidth=2)
-plt.plot(x_all, y_all, label='act', color='red')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.legend()
-plt.title('Trajectory')
-plt.grid()
-plt.axis('equal')
+plt.ioff()
 plt.show()
-plt.show(block=False)  # Non-blocking display
-plt.pause(2)  # Pause for 2 seconds
-plt.close()  # Close the plot

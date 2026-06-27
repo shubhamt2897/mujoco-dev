@@ -28,11 +28,11 @@ class Robot:
 # <geom mesh="base_0" material="black" class="visual"/>
 # <geom mesh="base_1" material="jointgray" class="visual"/>
 
-            base_quat = np.array([1, 0, 0, 1])
+            base_quat = np.array([0, 0, 0, -1])
             self.base_quat = ram.quat_normalize(base_quat)
 
             self.end_eff_pos_local = np.array([0, 0.1, 0])
-            end_eff_quat_local = np.array([-1, 1, 1, 1])
+            end_eff_quat_local = np.array([-1, 1, 0, 0])
             self.end_eff_quat_local = ram.quat_normalize(end_eff_quat_local)
 
     #constructor for Robot

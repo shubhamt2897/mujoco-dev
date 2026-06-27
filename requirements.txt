@@ -6,7 +6,7 @@ scipy==1.16.0
 # Visualization and plotting
 matplotlib==3.10.3
 imageio==2.37.0
-i ageio-ffmpeg==0.6.0
+imageio-ffmpeg==0.6.0
 
 # OpenGL support for MuJoCo viewer
 PyOpenGL==3.1.9

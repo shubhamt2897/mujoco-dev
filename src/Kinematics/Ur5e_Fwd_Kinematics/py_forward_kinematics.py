@@ -2,7 +2,7 @@ from robot_data import robot
 import numpy as np
 from forward_kinematics import forward_kinematics
 import utility as ram
-from animate import animate
+from animate import animate_with_sliders
 
 #print(robot.body[1].name)
 
@@ -30,4 +30,4 @@ print("Quaternion of the end-effector:")
 print(end_eff_quat)
 
 #print(sol)
-animate(robot)
+animate_with_sliders(robot, forward_kinematics, q, title='UR5e live forward kinematics')
